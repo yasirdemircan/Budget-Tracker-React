@@ -1,5 +1,5 @@
 import React from 'react'
-
+import { formatter } from '../lib/CurrencyFormatter'
 export type Transaction = {
   income:boolean
   amount: number,
@@ -9,9 +9,9 @@ export type Transaction = {
 
 export default function Ledger({ ledger }: { ledger: Transaction[] }) {
   return (
-    <div className='bg-white w-6/12 h-96 gap-4 self-center items-center flex-col flex overflow-scroll overflow-x-hidden mb-10'>
+    <div className='bg-white h-96 gap-4 self-center items-center flex-col flex overflow-scroll overflow-x-hidden mb-10'>
 
-<table className="table table-md">
+<table className="table table-xs sm:table-lg">
 
     <thead className='text-primary'>
       <tr>
@@ -25,9 +25,9 @@ export default function Ledger({ ledger }: { ledger: Transaction[] }) {
 
     {ledger.map((item,index) => (
      
-     <tr className={item.income ? "text-green-400":"text-red-400"}>
+     <tr key={index} className={item.income ? "text-green-400":"text-red-400"}>
      <th>{index+1}</th>
-     <td>{item.amount}</td>
+     <td>{formatter.format(item.amount * (item.income ? 1:-1))}</td>
      <td>{item.type}</td>
      <td>{item.date}</td>
    </tr>

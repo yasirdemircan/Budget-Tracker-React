@@ -4,6 +4,7 @@ import './App.css';
 import Ledger, { Transaction } from './components/Ledger';
 import InputForm from './components/InputForm';
 import SendWrite from './lib/SendWrite';
+import { formatter } from './lib/CurrencyFormatter';
 
 function App() {
   const [tType, setTtype] = useState<string>("Other");
@@ -94,12 +95,16 @@ function App() {
     <div className="bg-gradient-to-r from-[#654ea3] to-[#eaafc8] w-full  flex items-center justify-center">
       <div className=' mx-72 mt-24 mb-48 h-full w-full bg-base-100 bg-opacity-20 flex flex-col gap-24 rounded-2xl'>
 
-        <h1 className='text-center text-neutral mt-10 text-2xl mx-[40%]'>{"Total Value: " + total}$</h1>
+        <div className='flex flex-col gap-2 self-center text-center mt-10 text-2xl mx-[40%]'>
+<h1 className='text-neutral'>Total</h1>
+<h1 className='text-white'>{formatter.format(total)}</h1>
+        </div>
+        
 
         <InputForm A_setter={setAmount} T_setter={setTtype} inputRef={inputref}></InputForm>
 
 
-        <div className='flex flex-row w-72 self-center justify-between '>
+        <div className='flex flex-row max-sm:flex-col max-sm:w-40 max-sm:gap-3 w-72  self-center justify-between '>
           <button className="btn btn-success btn-md" onClick={() => {
             addIncome()
           }}>Income</button>
